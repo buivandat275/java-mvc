@@ -21,7 +21,7 @@
               <h3>Table User</h3>
               <a href="/admin/user/create" class="btn btn-primary">Create a user</a>
           </div>
-
+          <hr>
           <table class="table table-bordered table-hover"  >
             <thead>
               <tr>
@@ -32,33 +32,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td><button type="button" class="btn btn-success" >View</button>
-                  <button type="button" class="btn btn-warning" >Update</button>
-                  <button type="button" class="btn btn-danger" >Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td><button type="button" class="btn btn-success" >View</button>
-                  <button type="button" class="btn btn-warning" >Update</button>
-                  <button type="button" class="btn btn-danger" >Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td><button type="button" class="btn btn-success" >View</button>
-                  <button type="button" class="btn btn-warning" >Update</button>
-                  <button type="button" class="btn btn-danger" >Delete</button>
-                </td>
-              </tr>
+             
+              <c:forEach var="user" items="${users1}">
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.email}</td>
+                    <td>${user.fullName}</td>
+                    <td><a href="/admin/user/${user.id}" type="button" class="btn btn-success" >View</a>
+                        <a href="/admin/user/update/${user.id}" type="button" class="btn btn-warning" >Update</a>
+                        <a href="/admin/user/delete/${user.id}" type="button" class="btn btn-danger" >Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
           </table>
         </div>
