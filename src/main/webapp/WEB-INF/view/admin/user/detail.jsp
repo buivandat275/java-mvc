@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Delete - SB Admin</title>
+        <title>Details - SB Admin</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -20,22 +20,29 @@
         <jsp:include page="../layout/sidebar.jsp"/>  
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container">
-                        <h1>Delete the user by id= ${id}</h1>
-                        <hr>
-                        <div class="alert alert-danger" role="alert">
-                            Are you sure to delete this user ?
+                  <div class="container mt-5">
+                    <div class="row">
+                      <div class="col-12 mx-auto">
+                        <div class="d-flex justify-content-between ">
+                            <h3> User Detail ${id} </h3>
                         </div>
-                       
-                        <form:form method="post" action="/admin/user/delete"  modelAttribute="newUser">
-                            <div class="mb-3" style="display: none;">
-                                <label for="exampleInputPassword1" class="form-label">Id</label>
-                                <form:input type="text" value="${id}" class="form-control" path="id" display="none"/>
-                              </div>
-                            <button class="btn btn-danger">Confirn</button>
-                    
-                        </form:form>
+                        <hr>
+                        <div class="card" style="width: 18rem;">
+                          <div class="card-header">
+                            User information 
+                          </div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID:${user.id}</li>
+                            <li class="list-group-item">Emial: ${user.email}</li>
+                            <li class="list-group-item">Address: ${user.address}</li>
+                            <li class="list-group-item">Full Name: ${user.fullName}</li>
+                            <li class="list-group-item">Phone: ${user.phone}</li>
+                          </ul>
+                        </div>
+                        <a href="/admin/user" class="btn btn-success">Back</a>
+                      </div>
                     </div>
+                  </div>
                 </main>
                 <jsp:include page="../layout/footer.jsp"/>
             </div>

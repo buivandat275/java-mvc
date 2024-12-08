@@ -1,16 +1,17 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
+
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.hoidanit.laptopshop.domain.User;
-import vn.hoidanit.laptopshop.repository.UserRepository;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +19,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
-
-
 
 @Controller 
 public class UserController {
     
         private final UserService userService;
+        private final UploadService uploadService;
+        private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,UploadService uploadService,
+    PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.uploadService = uploadService;
+        this.passwordEncoder =passwordEncoder ;
     }
 
     @RequestMapping("/") 
@@ -46,7 +47,7 @@ public class UserController {
     public String getUserPage(Model model){
         List<User> users =this.userService.getAllUsers();
         model.addAttribute("users1", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/{id}") 
@@ -54,7 +55,7 @@ public class UserController {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("id", id);
-        return "admin/user/show";
+        return "admin/user/detail";
     }
 
     @RequestMapping("/admin/user/update/{id}") 
@@ -97,9 +98,16 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST) 
-    public String createUserPage(Model model,@ModelAttribute("newUser") User Buidat){
-        System.out.println("run here"+Buidat);
+    @PostMapping("/admin/user/create") 
+    public String createUserPage(Model model,
+    @ModelAttribute("newUser") User Buidat,
+     @RequestParam("hoidanitFile") MultipartFile file
+    ){
+       String avatar= this.uploadService.handleSaveUploadFile(file, "avatar");
+       String hashPassWord = this.passwordEncoder.encode(Buidat.getPassword());
+        Buidat.setAvatar(avatar);
+        Buidat.setPassword(hashPassWord);
+        Buidat.setRole(this.userService.getRoleByName(Buidat.getRole().getName()));
         this.userService.handleSaveUser(Buidat);
         return "redirect:/admin/user";
     }
