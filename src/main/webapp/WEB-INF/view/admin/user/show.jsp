@@ -12,6 +12,7 @@
         <title>Show User - SB Admin</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
     </head>
     <body class="sb-nav-fixed">
         <jsp:include page="../layout/header.jsp"/>
@@ -49,6 +50,8 @@
                                       <a href="/admin/user/update/${user.id}" type="button" class="btn btn-warning" >Update</a>
                                       <a href="/admin/user/delete/${user.id}" type="button" class="btn btn-danger" >Delete</a>
                                   </td>
+
+                                  
                               </tr>
                           </c:forEach>
                           </tbody>
