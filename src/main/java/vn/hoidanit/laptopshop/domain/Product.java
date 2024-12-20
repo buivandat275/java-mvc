@@ -1,10 +1,18 @@
 package vn.hoidanit.laptopshop.domain;
 
+import org.hibernate.validator.constraints.Range;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -13,14 +21,29 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
+    @NotEmpty(message = "Ten san pham khong duoc de trong")
     private String name;
+    @NotNull
+    @DecimalMin(value="0",inclusive = false,message="Price Phai lon hon 0") 
     private double price;
     private String image;
+    @NotNull
+    @NotEmpty(message ="detailDesc khong duoc de trong")
     private String detailDesc;
+    @NotNull
+    @NotEmpty(message = "shortDesc khong duoc de trong")
     private String shortDesc;
+    @NotNull
+    @Min(value = 1 ,message = "so luong lon hown hoac bang1")
     private long quantity;
+
     private long sold;
+    @NotNull
+
     private String factory;
+    @NotNull
+
     private String target;
     public long getId() {
         return id;
