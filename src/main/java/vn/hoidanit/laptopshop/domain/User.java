@@ -27,7 +27,6 @@ public class User {
     @NotNull
     @Size(min = 3,message = "full name phai co toi thieu 3 ki tu")
     private String fullName;
-    @NotNull
     private String address;
     private String phone;
 
