@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
@@ -69,6 +71,13 @@ public class HomePageController {
         model.addAttribute("registerUser", new RegisterDTO());
 
         return "client/auth/login";
+    }
+
+    @GetMapping("/access-deny")
+    public String getDenyPage(Model model) {
+        model.addAttribute("registerUser", new RegisterDTO());
+
+        return "client/auth/access-deny";
     }
     
 }

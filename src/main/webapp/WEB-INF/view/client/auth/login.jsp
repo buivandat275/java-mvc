@@ -20,31 +20,35 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                 <div class="card-body">
-                                    <form:form method="post" action="/login" modelAttribute="registerUser">
+                                    <form method="post" action="/login" >
+                                        <c:if test="${param.error != null}">
+                                        <div class="my-2" style="color: red;">Invalid email or password.</div>
+                                        </c:if>
+                                        <c:if test="${param.logout != null}">
+                                        <div class="my-2" style="color: green;">Logout success.</div>
+                                        </c:if>
                                         
-                                        <c:set var="errorEmail">
-                                            <form:errors path="email" cssClass="invalid-feedback" />
-                                        </c:set>
-                                    
                                         <div class="form-floating mb-3 ">
-                                            <form:input class="form-control " id="inputEmail" type="email" placeholder="name@example.com" 
-                                            path="email"
+                                            <input class="form-control " type="email" placeholder="name@example.com" 
+                                           name="username"
                                             />
-                                            <label for="inputEmail">Email address</label>
+                                            <label >Email address</label>
                                         </div>
                                                 <div class="form-floating mb-3 ">
-                                                    <form:input class="form-control" id="inputPassword" type="password" placeholder="Create a password" 
-                                                    path="password"
+                                                    <input class="form-control"  type="password" placeholder="Create a password" 
+                                                    name="password"
                                                     />
-                                                    <label for="inputPassword">  Password</label>
+                                                    <label>  Password</label>
                                             </div>
+                                            
+                                            <div><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></div>
                                             
                                         <div class="mt-4 mb-0">
                                           <div class="d-grid"> <button class="btn btn-primary btn-block">
                                                 Login
                                            </button></div>
                                         </div>
-                                    </form:form>
+                                    </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
                                     <div class="small"><a href="/register">Need an account? Sign up!</a></div>

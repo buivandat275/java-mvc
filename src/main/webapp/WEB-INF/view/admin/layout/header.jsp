@@ -8,7 +8,9 @@
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div style="color: aliceblue;" >
-            Welcome, Bùi Tiến Đạt
+            <div class="text-center my-3">
+              Welcome,  <c:out value="${pageContext.request.userPrincipal.name}" />
+            </div>
         </div>
     </form>
     <!-- Navbar-->
@@ -19,7 +21,10 @@
                 <li><a class="dropdown-item" href="#!">Settings</a></li>
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <li><form method="post" action="/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <button class="dropdown-item" href="#">Logout</button>
+                </form></li>
             </ul>
         </li>
     </ul>
