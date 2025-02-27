@@ -3,6 +3,9 @@ package vn.hoidanit.laptopshop.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,19 @@ public class ItemController {
             this.productService = productService;
         }
     
+    @GetMapping("/products")
+    public String getProductPage(Model model, @RequestParam(value = "page" , defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1 , 6);
+        //List<Product>  products = this.productService.getAllProduct();
+
+        Page<Product>  prs = this.productService.getAllProduct(pageable);
+        List<Product> products = prs.getContent();
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prs.getTotalPages());
+
+        return "client/product/show";
+    }
     @GetMapping("/product/{id}") 
     public String getProductPage(Model model, @PathVariable long id){
         Product product = this.productService.getProductById(id);
