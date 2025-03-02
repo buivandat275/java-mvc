@@ -24,6 +24,10 @@
 
 <!-- Template Stylesheet -->
 <link href="/client/css/style.css" rel="stylesheet">
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf_headerName}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -174,13 +178,13 @@
                                 </div>
 
                             </div>
-                            <div class="col-12">
+                            <form class="col-12">
                                 <button 
                                     class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4"
                                     id="btnFilter">
                                     Lọc Sản Phẩm
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-12 col-md-8 text-center">
@@ -262,7 +266,7 @@
                             </c:if>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
