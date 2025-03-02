@@ -156,7 +156,7 @@
                                     <label class="form-check-label" for="price-5">Trên 20 triệu</label>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12"  >
                                 <div class="mb-2"><b>Sắp xếp</b></div>
 
                                 <div class="form-check form-check-inline">
